@@ -1,40 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 
-async function getPexelsImage() {
-  const apiKey = process.env.PEXELS_API_KEY;
-  if (!apiKey) {
-    return null;
-  }
-
-  try {
-    const res = await fetch("https://api.pexels.com/v1/search?query=nature+landscape+aesthetic&orientation=landscape&size=large&per_page=15", {
-      headers: {
-        Authorization: apiKey,
-      },
-      next: { revalidate: 3600 }, // Revalidate every hour
-    });
-    
-    if (!res.ok) {
-      throw new Error('Failed to fetch image');
-    }
-
-    const data = await res.json();
-    if (data.photos && data.photos.length > 0) {
-      // Pick a random photo from the results
-      const randomPhoto = data.photos[Math.floor(Math.random() * data.photos.length)];
-      return randomPhoto.src.original;
-    }
-    return null;
-  } catch (error) {
-    console.error("Error fetching Pexels image:", error);
-    return null;
-  }
-}
-
-export default async function Home() {
-  const bgImage = await getPexelsImage() || "https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg";
-
+export default function Home() {
   const links = [
     { title: "Personal Blog", url: "https://davidhullster.github.io", icon: "📝" },
     { title: "GitHub Profile", url: "https://github.com/davidhullster", icon: "💻" },
@@ -43,15 +9,15 @@ export default async function Home() {
   ];
 
   return (
-    <main 
-      className="min-h-screen flex items-center justify-center p-4 bg-cover bg-center bg-no-repeat relative bg-neutral-900"
-      style={{ backgroundImage: `url(${bgImage})` }}
-    >
-      {/* Dark overlay to ensure text readability */}
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-[2px]"></div>
+    <main className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-slate-950">
+      
+      {/* Animated Mesh Gradients */}
+      <div className="absolute top-0 -left-4 w-72 h-72 sm:w-96 sm:h-96 bg-purple-600 rounded-full mix-blend-screen filter blur-[100px] opacity-40 animate-blob"></div>
+      <div className="absolute top-0 -right-4 w-72 h-72 sm:w-96 sm:h-96 bg-emerald-600 rounded-full mix-blend-screen filter blur-[100px] opacity-40 animate-blob" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute -bottom-8 left-20 w-72 h-72 sm:w-96 sm:h-96 bg-cyan-600 rounded-full mix-blend-screen filter blur-[100px] opacity-40 animate-blob" style={{ animationDelay: '4s' }}></div>
 
       {/* Glassmorphic Container */}
-      <div className="relative z-10 w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl rounded-3xl p-8 flex flex-col items-center animate-in fade-in zoom-in duration-700">
+      <div className="relative z-10 w-full max-w-md bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl rounded-3xl p-8 flex flex-col items-center animate-in fade-in zoom-in duration-700">
         
         {/* Avatar Placeholder */}
         <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-emerald-400 to-cyan-400 shadow-lg border-4 border-white/30 flex items-center justify-center text-3xl mb-4 overflow-hidden relative">
@@ -69,7 +35,7 @@ export default async function Home() {
             <Link 
               key={index} 
               href={link.url}
-              className="group relative flex items-center justify-between p-4 bg-white/5 hover:bg-white/20 border border-white/10 hover:border-white/30 rounded-xl transition-all duration-300 text-white overflow-hidden shadow-sm hover:shadow-md"
+              className="group relative flex items-center justify-between p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 rounded-xl transition-all duration-300 text-white overflow-hidden shadow-sm hover:shadow-md"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/5 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></div>
               <div className="flex items-center gap-3 relative z-10">
