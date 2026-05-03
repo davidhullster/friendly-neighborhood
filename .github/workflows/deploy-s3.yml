@@ -27,8 +27,6 @@ jobs:
 
       - name: Build Static Export
         run: npm run build
-        env:
-          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
