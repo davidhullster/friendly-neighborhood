@@ -36,4 +36,4 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Sync to S3
-        run: aws s3 sync ./out s3://${{ secrets.AWS_S3_BUCKET_NAME }} --delete
+        run: aws s3 sync ./out s3://friendly-neighborhood.davidhullster.com --delete
