@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Friendly Neighborhood</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type="text/css">
+      :root {
+        --bg: rgb(253, 245, 230);
+        --fg: rgb(143, 188, 143);
+        --card-bg: rgba(255, 255, 255, 0.85);
+        --card-accent: rgba(0, 0, 0, 0.25);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: rgb(143, 188, 143);
+          --fg: rgb(253, 245, 230);
+        }
+      }
+      html {
+        height: 100%;
+        padding: 1rem;
+      }
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        height: 100%;
+        max-width: 35rem;
+        font-size: 18px;
+        line-height: 30px;
+        margin: 0 auto;
+      }
+
+      a {
+        background: var(--bg);
+        padding: 0.25rem;
+      }
+
+      footer {
+        margin: 4rem 0 2rem;
+      }
+
+      img {
+        display: flex;
+        max-width: 100%;
+      }
+
+      code {
+        display: block;
+        padding: 1rem;
+      }
+
+      polaroid {
+        background: var(--card-bg);
+        border: 1px solid var(--card-accent);
+        display: flex;
+        margin: 1rem 0;
+        padding: 1rem 1rem 3rem;
+      }
+
+      .sans-serif {
+        font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir,
+          segoe ui, helvetica neue, helvetica, Ubuntu, roboto, noto, arial,
+          sans-serif;
+      }
+
+      .serif {
+        font-family: Iowan Old Style, Apple Garamond, Baskerville,
+          Times New Roman, Droid Serif, Times, Source Serif Pro, serif,
+          Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+      }
+
+      .mono {
+        font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console,
+          monospace;
+      }
+
+      /*
+        Best Practice from A11y Project
+        https://a11yproject.com/posts/how-to-hide-content/
+      */
+      .visually-hidden {
+        position: absolute !important;
+        height: 1px;
+        width: 1px;
+        overflow: hidden;
+        clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+        clip: rect(1px, 1px, 1px, 1px);
+        white-space: nowrap; /* added line */
+      }
+
+      .breadcrumb {
+        text-align: right;
+      }
+    </style>
+    <script>
+      const PEXEL_API_KEY =
+        "563492ad6f91700001000001f51bb951358d4625877a236b400bb767";
+      const headers = {
+        mode: "no-cors",
+        "x-api-key": PEXEL_API_KEY,
+        PEXEL_API_KEY,
+      };
+      async function f() {
+        let url = "https://api.pexels.com/v1/curated";
+        let response = await fetch(url, {
+          headers: headers,
+        });
+        let images = await response.json();
+        let pexel_photo = images.photos[0]["src"]["large"];
+      }
+      f();
+    </script>
+    <script>
+      async function f() {
+        let promise = new Promise((resolve, reject) => {
+          setTimeout(() => resolve("done!"), 1000); // wait 1 second
+        });
+
+        let result = await promise; // wait until the promise resolves (*)
+      }
+      f();
+    </script>
+  </head>
+  <body class="serif">
+    <a id="page-top" class="visually-hidden"></a>
+    <header>
+      <nav>
+        <a href="#content" class="visually-hidden">Skip Navigation</a>
+        <h3>Menu</h3>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#quick-start">Quick Start</a></li>
+          <li><a href="#next-steps">Next Steps</a></li>
+        </ul>
+      </nav>
+      <a id="content" class="visually-hidden"></a>
+      <polaroid>
+        <a href="index.html">
+          <!-- <img src="https://picsum.photos/id/1033/518/345" /> -->
+          <img src="${pexel_photo}" />
+        </a>
+      </polaroid>
+      <p class="breadcrumb">
+        You are: <strong>Home</strong> <a href="#page-top">View Menu</a>
+      </p>
+      <a name="about"></a>
+      <h1>Shelflife Zero</h1>
+    </header>
+    <main>
+      <p>Present table for measured accounting.</p>
+      <ul>
+        <li>Structured</li>
+        <li>Permanent</li>
+        <li>Stable</li>
+        <li>Portable</li>
+      </ul>
+      <a name="quick-start"></a>
+      <h2>Quick Start</h2>
+      <p>Follow these three instructions.</p>
+      <ol>
+        <li>
+          <code>cat /etc/opt/nums</code>
+        </li>
+        <li>Step One</li>
+        <li>Step Two</li>
+      </ol>
+      <p>Epoque integral</p>
+
+      <a name="next-steps"></a>
+      <h2>Next Steps</h2>
+      <p>Tout ce qui fait du bien, tout simplement.</p>
+      <a href="#page-top">Go to top</a>
+    </main>
+    <footer class="mono">Société Anonyme - PaysInsupportable</footer>
+    <script type="text/javascript">
+      (function () {
+        location.hash = "#content";
+      })();
+    </script>
+  </body>
+</html>
